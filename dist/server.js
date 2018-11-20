@@ -94,7 +94,54 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _express2 = _interopRequireDefault(_express);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar app = (0, _express2.default)();\n\napp.get('/', function (req, res) {\n  res.send({ message: 'hello world' });\n});\n\napp.get('/', function (req, res) {\n  res.send({});\n});\n\napp.listen(3000);\n\n//# sourceURL=webpack:///./app.js?");
+eval("\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _express2 = _interopRequireDefault(_express);\n\nvar _middleware = __webpack_require__(/*! ./src/middleware */ \"./src/middleware/index.js\");\n\nvar _middleware2 = _interopRequireDefault(_middleware);\n\nvar _v = __webpack_require__(/*! ./src/v1 */ \"./src/v1/index.js\");\n\nvar _v2 = _interopRequireDefault(_v);\n\nvar _config = __webpack_require__(/*! ./config/config.json */ \"./config/config.json\");\n\nvar _config2 = _interopRequireDefault(_config);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar app = (0, _express2.default)();\nvar db = {}; // TODO\n\napp.get('/', function (req, res) {\n  res.send({ message: 'hello world' });\n});\n\n// internal middleware\napp.use((0, _middleware2.default)({ config: _config2.default, db: db }));\n\napp.use('/api/v1', (0, _v2.default)({ config: _config2.default, db: db }));\n\napp.listen(3000);\n\n//# sourceURL=webpack:///./app.js?");
+
+/***/ }),
+
+/***/ "./config/config.json":
+/*!****************************!*\
+  !*** ./config/config.json ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module) {
+
+eval("module.exports = {};\n\n//# sourceURL=webpack:///./config/config.json?");
+
+/***/ }),
+
+/***/ "./src/middleware/index.js":
+/*!*********************************!*\
+  !*** ./src/middleware/index.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nexports.default = function (_ref) {\n\tvar config = _ref.config,\n\t    db = _ref.db;\n\n\tvar routes = (0, _express.Router)();\n\n\t// add middleware here\n\n\treturn routes;\n};\n\n//# sourceURL=webpack:///./src/middleware/index.js?");
+
+/***/ }),
+
+/***/ "./src/v1/index.js":
+/*!*************************!*\
+  !*** ./src/v1/index.js ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _videos = __webpack_require__(/*! ./videos */ \"./src/v1/videos/index.js\");\n\nvar _videos2 = _interopRequireDefault(_videos);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = function (_ref) {\n\tvar config = _ref.config,\n\t    db = _ref.db;\n\n\tvar api = (0, _express.Router)();\n\n\t// mount the videos resource\n\tapi.use('/videos', (0, _videos2.default)({ config: config, db: db }));\n\n\t// perhaps expose some API metadata at the root\n\tapi.get('/', function (req, res) {\n\t\tres.json({ test: 'aaa' });\n\t});\n\n\treturn api;\n};\n\n//# sourceURL=webpack:///./src/v1/index.js?");
+
+/***/ }),
+
+/***/ "./src/v1/videos/index.js":
+/*!********************************!*\
+  !*** ./src/v1/videos/index.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nexports.default = function (_ref) {\n  var config = _ref.config,\n      db = _ref.db;\n\n  var api = (0, _express.Router)();\n\n  api.get('/', function (req, res) {\n    res.json({\n      videos: [{\n        title: 'test video',\n        url: 'https://shuichi.tech'\n      }, {\n        title: 'test video2',\n        url: 'https://shuichi.tech'\n      }, {\n        title: 'test video3',\n        url: 'https://shuichi.tech'\n      }]\n    });\n  });\n\n  return api;\n};\n\n//# sourceURL=webpack:///./src/v1/videos/index.js?");
 
 /***/ }),
 
