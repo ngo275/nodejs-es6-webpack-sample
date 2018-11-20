@@ -94,7 +94,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _express2 = _interopRequireDefault(_express);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar app = (0, _express2.default)();\n\napp.get('/', function (req, res) {\n  res.send({ message: 'hello world' });\n});\n\napp.listen(3000);\n\n//# sourceURL=webpack:///./app.js?");
+eval("\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _express2 = _interopRequireDefault(_express);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar app = (0, _express2.default)();\n\napp.get('/', function (req, res) {\n  res.send({ message: 'hello world' });\n});\n\napp.get('/', function (req, res) {\n  res.send({});\n});\n\napp.listen(3000);\n\n//# sourceURL=webpack:///./app.js?");
 
 /***/ }),
 
