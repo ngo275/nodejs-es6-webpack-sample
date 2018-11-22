@@ -141,7 +141,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n\tvalue: true\n});\n
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nexports.default = function (_ref) {\n  var config = _ref.config,\n      db = _ref.db;\n\n  var api = (0, _express.Router)();\n\n  api.get('/', function (req, res) {\n    res.json({\n      videos: [{\n        title: 'test video',\n        url: 'https://shuichi.tech'\n      }, {\n        title: 'test video2',\n        url: 'https://shuichi.tech'\n      }, {\n        title: 'test video3',\n        url: 'https://shuichi.tech'\n      }]\n    });\n  });\n\n  return api;\n};\n\n//# sourceURL=webpack:///./src/v1/videos/index.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nexports.default = function (_ref) {\n  var config = _ref.config,\n      db = _ref.db;\n\n  var api = (0, _express.Router)();\n\n  api.get('/', function (req, res) {\n    res.json({\n      videos: [{\n        id: 'tencent_videos',\n        name: '腾讯视频',\n        open: false,\n        videos: [{ id: 'l0025mppim4', title: 'Chinese TED' }, { id: 'h0026v0vvl6', title: 'Chinese idle' }]\n      }, {\n        id: 'youku',\n        name: '优酷',\n        open: false,\n        videos: [{ id: 'l0025mppim4', title: 'Chinese TED' }, { id: 'h0026v0vvl6', title: 'Chinese idle' }]\n      }]\n    });\n  });\n\n  return api;\n};\n\n//# sourceURL=webpack:///./src/v1/videos/index.js?");
 
 /***/ }),
 
