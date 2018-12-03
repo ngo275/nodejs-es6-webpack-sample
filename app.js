@@ -15,4 +15,4 @@ app.use(middleware({ config, db }));
 
 app.use('/api/v1', v1({ config, db }));
 
-app.listen(3000);
+app.listen(3389);
