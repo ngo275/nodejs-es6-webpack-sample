@@ -1,8 +1,11 @@
 import { Router } from 'express';
+import users from './users';
 import videos from './videos';
 
 export default ({ config, db }) => {
 	let api = Router();
+
+	api.use('/users', users({ config, db }))
 
 	// mount the videos resource
 	api.use('/videos', videos({ config, db }));

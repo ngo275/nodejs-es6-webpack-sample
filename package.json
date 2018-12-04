@@ -6,6 +6,7 @@
     "eslint": "eslint .",
     "test": "jest",
     "webpack-dev": "webpack --config config/webpack.config.dev.js",
+    "webpack-prd": "webpack --config config/webpack.config.prd.js",
     "dev": "concurrently \"NODE_ENV=development webpack -w --config config/webpack.config.dev.js\" \"nodemon --watch ./dist/server.js\"",
     "forever": "forever start ./node_modules/nodemon/bin/nodemon.js --watch ./dist/server.js",
     "stop-forever": "forever stop 0"
@@ -13,7 +14,9 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "forever": "^0.15.3"
+    "forever": "^0.15.3",
+    "mysql2": "^1.6.4",
+    "sequelize": "^4.41.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
