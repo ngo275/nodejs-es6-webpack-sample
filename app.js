@@ -1,13 +1,14 @@
 import express from 'express';
 import middleware from './src/middleware';
 import v1 from './src/v1';
+import { getModels } from './models';
 import config from './config/config.json';
 
 const env = process.env.NODE_ENV || 'development';
 const conf = config[env]
 
 const app = express();
-const db = {} // TODO
+const db = getModels(conf)
 
 app.get('/', (req, res) => {
   res.send({ message: 'hello world' });
