@@ -16,40 +16,32 @@ export default ({ config, db }) => {
   })
 
   api.post('/', async (req, res) => {
-    const newUser = await db.user.findOrCreate({ where: { name: 'Hanako', child_birthday: '20171202', session_code: '002ePUOe2mwesH0e4LOe2yYTOe2ePUOx' }})
-    res.json(newUser)
+    const { name, sessionCode, avatarUrl } = req.body
+    const newUser: Array<any> = await db.user.findOrCreate({ where: { name, session_code: sessionCode }})
+    const result = await newUser[0].update({ avatar_url: avatarUrl })
+    res.json(result)
   })
 
-  api.get('/destroy/:user_id', async (req, res) => {
-    const userId = req.params.user_id
+  // FIXME: put doesn't get req.body
+  api.put('/:userId', async (req, res) => {
+    const userId = req.params.userId
+    //const { name, avatarUrl } = req.body
+    const name = 'shuichi'
+    const avatarUrl = 'https://wx.qlogo.cn/mmopen/vi_32/rdl0vmOhkS8KIgY8DHAjdiaz5KyIBQa018xiaw8HWRRXVu1xz3s6d0icJOHOB7lsj8QX7GPS4icg8axXrAJY7OTIMw/132'
+    console.log(req.body)
+    console.log(name, avatarUrl)
+    const user = await db.user.update({ name, avatar_url: avatarUrl }, { where: { id: userId }})
+    res.json(user)
+  })
+
+  api.get('/destroy/:userId', async (req, res) => {
+    const userId = req.params.userId
 
     // TODO: These executions should be in one transaction.
     const userDestroyCount = await db.user.destroy({ where: { id: userId }})
     const favDestroyCount = await db.users_videos.destroy({ where: { user_id: userId }})
     
     const message = userDestroyCount > 0 ? 'successfully deleted' : 'failed to delete the user'
-    res.json({ message })
-  })
-
-  api.get('/:userId/favorites', async (req, res) => {
-    const userId = req.params.userId
-    const fav = await db.users_videos.findAll({ where: { user_id: userId }})
-    const videos = await db.video.findAll({ where: {[Sequelize.Op.or]: [{ id: fav.map(f => f.video_id) }]}})
-    res.json(videos)
-  })
-
-  api.post('/:userId/favorites/:videoId', async (req, res) => {
-    const userId = req.params.userId
-    const videoId = req.params.videoId
-    const fav = await db.users_videos.findOrCreate({ where: { user_id: userId, video_id: videoId }})
-    res.json(fav)
-  })
-
-  api.post('/:userId/favorites/:videoId/delete', async (req, res) => {
-    const userId = req.params.userId
-    const videoId = req.params.videoId
-    const favDestroyCount = await db.users_videos.destroy({ where: { user_id: userId, video_id: videoId }})
-    const message = favDestroyCount > 0 ? 'successfully remove favorite' : 'failed to remove favorite'
     res.json({ message })
   })
 

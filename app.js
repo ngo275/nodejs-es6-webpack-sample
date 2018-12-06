@@ -1,4 +1,5 @@
 import express from 'express';
+import bodyParser from 'body-parser'
 import middleware from './src/middleware';
 import v1 from './src/v1';
 import { getModels } from './models';
@@ -9,6 +10,10 @@ const conf = config[env]
 
 const app = express();
 const db = getModels(conf)
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 
 app.get('/', (req, res) => {
   res.send({ message: 'hello world' });

@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     child_birthday: DataTypes.STRING,
     session_code: { type: DataTypes.STRING, unique: true },
+    avatar_url: DataTypes.STRING,
   }, {
     underscored: true,
   });
