@@ -12,6 +12,6 @@
     "plugins": ["flowtype"],
     "rules": {
         "flowtype/no-types-missing-file-annotation": 1,
-        "max-len": [2, 100, 4, {"ignoreUrls": true}]
+        "max-len": [2, 120, 4, {"ignoreUrls": true}]
     }
 }

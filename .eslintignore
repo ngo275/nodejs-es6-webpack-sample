@@ -5,3 +5,5 @@ __mocks__
 node_modules
 .idea
 .vscode
+migrations
+models

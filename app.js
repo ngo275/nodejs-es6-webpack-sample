@@ -1,15 +1,16 @@
 import express from 'express';
-import bodyParser from 'body-parser'
+import bodyParser from 'body-parser';
 import middleware from './src/middleware';
 import v1 from './src/v1';
+/* eslint-disable */
 import { getModels } from './models';
 import config from './config/config.json';
 
 const env = process.env.NODE_ENV || 'development';
-const conf = config[env]
+const conf = config[env];
 
 const app = express();
-const db = getModels(conf)
+const db = getModels(conf);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -20,10 +21,10 @@ app.get('/', (req, res) => {
 });
 
 // internal middleware
-app.use(middleware({ config: conf, db }));
+app.use(middleware({ db }));
 
-app.use('/api/v1', v1({ config: conf, db }));
+app.use('/api/v1', v1({ db }));
 
-const PORT = conf.port || 3389
+const PORT = conf.port || 3389;
 
 app.listen(PORT);

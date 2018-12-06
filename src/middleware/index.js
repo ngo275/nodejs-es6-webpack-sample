@@ -1,9 +1,10 @@
 import { Router } from 'express';
 
+/* eslint-disable */
 export default ({ config, db }) => {
-	const routes = Router();
+  const routes = Router();
 
-	// add middleware here
+  // add middleware here
 
-	return routes;
-}
+  return routes;
+};

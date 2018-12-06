@@ -1,9 +1,9 @@
 // ref: https://github.com/sequelize/sequelize/issues/4974#issuecomment-271359179
 import Sequelize from 'sequelize';
 
-let models = {};
+const models = {};
 
-function getModels (config, force = false) {
+function getModels(config, force = false) {
   if (Object.keys(models).length && !force) {
     return models;
   }
@@ -12,10 +12,10 @@ function getModels (config, force = false) {
     config.database,
     config.username,
     config.password,
-    config
+    config,
   );
 
-  let modules = [
+  const modules = [
     require('./user.js'),
     require('./video.js'),
     require('./users_videos.js'),
@@ -41,5 +41,5 @@ function getModels (config, force = false) {
 }
 
 module.exports = {
-  getModels
+  getModels,
 };
