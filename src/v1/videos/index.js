@@ -9,6 +9,7 @@ export default ({ db }) => {
     copy.id = video.id;
     copy.tvid = video.tvid;
     copy.title = video.title;
+    copy.description = video.description;
     copy.created_at = video.created_at;
     copy.updated_at = video.updated_at;
     copy.is_favorite = isFavorite;
@@ -87,7 +88,7 @@ export default ({ db }) => {
 
     let isFavorite = false;
     if (userId) {
-      const isFavoriteArray = await db.users_videos.find({ where: { user_id: userId, video_id: videoId } });
+      const isFavoriteArray = await db.users_videos.findAll({ where: { user_id: userId, video_id: videoId } });
       isFavorite = isFavoriteArray.length > 0;
     }
     const copy = makeVideoCopy(video, isFavorite);

@@ -23,9 +23,12 @@ export default ({ db }) => {
 
   api.put('/:userId', async (req, res) => {
     const { userId } = req.params;
-    const { name, avatarUrl } = req.body;
-    const user = await db.user.update({ name, avatar_url: avatarUrl }, { where: { id: userId } });
-    res.json(user);
+    const { name } = req.body;
+    const childBirthday = req.body.child_birthday;
+    const avatarUrl = req.body.avatar_url;
+    const user = await db.user.update({ name, child_birthday: childBirthday, avatar_url: avatarUrl }, { where: { id: userId } });
+    const message = user[0] === 1 ? 'successfully updated' : 'failed to update';
+    res.json({ message });
   });
 
   api.get('/destroy/:userId', async (req, res) => {
